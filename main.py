@@ -16,6 +16,6 @@ array_left = [1, 2, 3, 3, 3, 6, 7]
 # result = binarySearch.binary_search_balance(array, 1)
 # print(result)
 
-# 最左侧
+# 最左侧查找法
 result = binarySearch.binary_search_left(array_left, 100)
 print(result)
