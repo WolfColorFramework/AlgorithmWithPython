@@ -1,5 +1,6 @@
 from algorithm.BinarySearch import BinarySearch
 
+# 二分法
 binarySearch = BinarySearch()
 array = [1, 2, 3, 4, 5, 6, 7]
 array_left = [1, 2, 3, 3, 3, 6, 7]
@@ -17,5 +18,9 @@ array_left = [1, 2, 3, 3, 3, 6, 7]
 # print(result)
 
 # 最左侧查找法
-result = binarySearch.binary_search_left(array_left, 100)
+result = binarySearch.binary_search_left(array_left, 3)
 print(result)
+
+# 最右侧查找法
+# result = binarySearch.binary_search_right(array_left, 3)
+# print(result)
