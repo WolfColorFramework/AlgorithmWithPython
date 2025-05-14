@@ -59,7 +59,7 @@ class BinarySearch:
     # 查找最右侧索引
     def binary_search_right(self, array, target):
         left, right = 0, len(array) - 1
-        resultIndex = -1
+        result_index = -1
         while left <= right:
             m = int((right + left) >> 1)  # /2 操作
             if target > array[m]:  # 待查找数据在右边
@@ -67,9 +67,9 @@ class BinarySearch:
             elif target < array[m]:  # 待查找数据在左边
                 right = m - 1
             else:
-                resultIndex = m
+                result_index = m
                 left = m + 1
-        return resultIndex
+        return result_index
 
     pass
 

@@ -28,8 +28,8 @@ array_left = [1, 2, 3, 3, 3, 6, 7]
 
 
 # 单向链表
-singlyLinked = SinglyLinkedList(None)
-singlyLinked.add_head(1)
-singlyLinked.add_head(2)
-singlyLinked.add_head(3)
-singlyLinked.loop_print()
+# singlyLinked = SinglyLinkedList(None)
+# singlyLinked.add_head(1)
+# singlyLinked.add_head(2)
+# singlyLinked.add_head(3)
+# singlyLinked.loop_print()
