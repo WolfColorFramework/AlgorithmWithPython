@@ -43,6 +43,26 @@ class BubbleSort:
         self.bubble_sort_2(high_index - 1)
         pass
 
+    def bubble_sort_3(self, high_index):
+
+        if high_index == 0:
+            return
+            pass
+
+        index, x = 0, 0 # x是左侧无序数组的最高位，x右侧的数组都是有序不需要再递归
+        while index < high_index:
+            if self.array[index] > self.array[index + 1]:
+                tmp = array[index + 1]
+                self.array[index + 1] = self.array[index]
+                self.array[index] = tmp
+                x = index
+                pass
+            index += 1
+            pass
+
+        self.bubble_sort_2(x)
+        pass
+
     def print_array(self):
         for num in self.array:
             print(f"{num}")
@@ -58,7 +78,8 @@ if __name__ == "__main__":
     bubble_sort = BubbleSort(array)
     # bubble_sort.bubble_sort()
 
-    bubble_sort.bubble_sort_2(len(bubble_sort.array) - 1)
+    # bubble_sort.bubble_sort_2(len(bubble_sort.array) - 1)
+    bubble_sort.bubble_sort_3(len(bubble_sort.array) - 1)
 
     bubble_sort.print_array()
 
