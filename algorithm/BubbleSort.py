@@ -1,4 +1,11 @@
-"""冒泡排序"""
+"""
+冒泡排序：
+
+非递归实现：2层循环，每一个元素与它的下一个元素比较，大的话就往右边移动
+
+递归实现：左侧数据是无序的，右侧数组是有序的，递归调用方法，将无序数组移动到有序数组中
+
+"""
 
 
 class BubbleSort:
@@ -60,7 +67,7 @@ class BubbleSort:
             index += 1
             pass
 
-        self.bubble_sort_2(x)
+        self.bubble_sort_3(x)
         pass
 
     def print_array(self):
