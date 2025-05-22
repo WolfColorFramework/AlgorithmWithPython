@@ -24,7 +24,11 @@ class InsertSort:
             self.array[sort_index + 1] = self.array[sort_index]
             sort_index -= 1
             pass
-        self.array[sort_index + 1] = current_value
+
+        if sort_index + 1 != low_index:
+            self.array[sort_index + 1] = current_value
+            pass
+
         self.insert_sort(low_index + 1)
         pass
 
