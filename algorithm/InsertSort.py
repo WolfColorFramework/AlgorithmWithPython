@@ -18,19 +18,13 @@ class InsertSort:
             return
             pass
 
-        index = low_index
-        current_value = self.array[index]
-        while index > 0:
-            sort_value = self.array[index - 1]
-            if current_value < sort_value:
-                self.array[index] = sort_value  # 空出一个位置，等待插入
-                index -= 1
-                pass
-            else:
-                break
-                pass
+        current_value = self.array[low_index]
+        sort_index = low_index - 1  # 有序索引的高位
+        while sort_index >= 0 and self.array[sort_index] > current_value:
+            self.array[sort_index + 1] = self.array[sort_index]
+            sort_index -= 1
             pass
-        self.array[index] = current_value
+        self.array[sort_index + 1] = current_value
         self.insert_sort(low_index + 1)
         pass
 
@@ -44,7 +38,7 @@ class InsertSort:
 
 
 if __name__ == "__main__":
-    array = [1, 2, 5, 3, 4, 6, 7]
+    array = [1, 2, 5, 3, 4, -1, 7]
 
     insert_sort = InsertSort(array)
     insert_sort.insert_sort(1)
