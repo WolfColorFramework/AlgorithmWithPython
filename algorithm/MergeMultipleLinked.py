@@ -42,7 +42,12 @@ class MergeMultipleLinked:
         :param j:
         :return:
         """
-        middle = (i + j) >> 2
+
+        if i == j:
+            return list_nodes[i]
+            pass
+
+        middle = (i + j) >> 1
         left = self.split(list_nodes, i, middle)
         right = self.split(list_nodes, middle + 1, j)
         return self.merge(left, right)
@@ -78,8 +83,18 @@ if __name__ == "__main__":
     node_5 = MergeMultipleLinked.ListNode(9, None)
     linked_2 = MergeMultipleLinked.ListNode(8, node_5)
 
-    mergeTwo = MergeMultipleLinked()
-    merge_linked = mergeTwo.merge(linked_1, linked_2)
-    mergeTwo.print_linked(merge_linked)
+    node_6 = MergeMultipleLinked.ListNode(6, None)
+    linked_3 = MergeMultipleLinked.ListNode(5, node_6)
+
+    node_7 = MergeMultipleLinked.ListNode(15, None)
+    node_8 = MergeMultipleLinked.ListNode(13, node_7)
+    node_9 = MergeMultipleLinked.ListNode(12, node_8)
+    linked_4 = MergeMultipleLinked.ListNode(10, node_9)
+
+    list_nodes = [linked_1, linked_2, linked_3, linked_4]
+
+    merge_multiple = MergeMultipleLinked()
+    merge_linked = merge_multiple.merge_multiple(list_nodes)
+    merge_multiple.print_linked(merge_linked)
 
     pass
