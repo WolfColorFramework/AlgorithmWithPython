@@ -45,10 +45,10 @@ class PriorityQueue:
     def poll(self):
         """
         删除堆顶元素
-        :return:
+        :return: 删除的元素
         """
 
-        if not self.is_full():
+        if self.size == 0:
             return None
 
         top = self.array[0]
@@ -112,8 +112,8 @@ class PriorityQueue:
         pass
 
     def print(self):
-        for index, num in enumerate(self.array):
-            print(f"index:{index},value:{num}")
+        for index, number in enumerate(self.array):
+            print(f"index:{index},value:{number}")
         print("None")
 
     pass
@@ -126,5 +126,17 @@ if __name__ == "__main__":
     priorityQueue.offer(2)
     priorityQueue.offer(5)
     priorityQueue.offer(1)
-    priorityQueue.print()
-    pass
+    # priorityQueue.print()
+
+    print("=====================")
+
+    # num = priorityQueue.poll()
+    #
+    # print(f"{num}，{priorityQueue.size}")
+
+    while priorityQueue.size > 0:
+        num = priorityQueue.poll()
+        print(f"{num}，{priorityQueue.size}")
+
+        pass
+pass
