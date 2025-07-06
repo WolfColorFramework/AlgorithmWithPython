@@ -126,13 +126,9 @@ if __name__ == "__main__":
     priorityQueue.offer(2)
     priorityQueue.offer(5)
     priorityQueue.offer(1)
-    # priorityQueue.print()
+    priorityQueue.print()
 
     print("=====================")
-
-    # num = priorityQueue.poll()
-    #
-    # print(f"{num}，{priorityQueue.size}")
 
     while priorityQueue.size > 0:
         num = priorityQueue.poll()
