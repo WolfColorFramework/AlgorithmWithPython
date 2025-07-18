@@ -70,6 +70,46 @@ class BinaryTree:
 
         pass
 
+    def symmetry_tree(self, left, right):
+        """
+        对称二叉树
+        :param left: 左树
+        :param right: 右树
+        :return:
+        """
+
+        if left is None and right is None:
+            return True
+
+        if left is None or right is None:
+            return False
+
+        if left != right:
+            return False
+
+        return self.symmetry_tree(left.left, right.right) and self.symmetry_tree(left.right, right.left)
+
+        pass
+
+    def flip_tree(self, tree_node):
+        """
+        翻转二叉树
+        :param tree_node: 树节点
+        :return:
+        """
+
+        if tree_node is None:
+            return
+
+        # 左右交换节点
+        temp_node = tree_node.left
+        tree_node.left = tree_node.right
+        tree_node.right = temp_node
+
+        self.flip_tree(tree_node.left)
+        self.flip_tree(tree_node.right)
+        pass
+
     class TreeNode:
         def __init__(self, value, left, right):
             self.value = value
