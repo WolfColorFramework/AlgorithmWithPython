@@ -110,6 +110,41 @@ class BinaryTree:
         self.flip_tree(tree_node.right)
         pass
 
+    def assemble_tree(self, pre_order, middle_order):
+        """
+        根据前序遍历、后续遍历 组装成二叉树
+        :param pre_order:
+        :param middle_order:
+        :return:
+        """
+
+        if len(pre_order) == 0 or len(middle_order) == 0:
+            return None
+
+        root_value = pre_order[0]
+
+        root = BinaryTree.TreeNode(root_value, None, None)
+
+        # 切分左子树、右子树
+        for index, value in middle_order:
+            if value == root_value:
+                # 中序左子树、右子树
+                middle_left = middle_order[0:index]
+                middle_right = middle_order[index + 1:len(middle_order)]
+
+                # 前序左子树、右子树
+                pre_left = pre_order[1:index + 1]
+                pre_right = pre_order[index + 1:len(pre_order)]
+
+                root.left = self.assemble_tree(pre_left, middle_left)
+                root.right = self.assemble_tree(pre_right, middle_right)
+                break
+                pass
+            pass
+
+        return root
+        pass
+
     class TreeNode:
         def __init__(self, value, left, right):
             self.value = value
@@ -128,8 +163,12 @@ class BinaryTree:
 
 
 if __name__ == "__main__":
-    tree = BinaryTree()
-    tree.prev(tree.root)
-    tree.prev_while(tree.root)
+    # tree = BinaryTree()
+    # tree.prev(tree.root)
+    # tree.prev_while(tree.root)
+
+    nums = [1, 2, 3, 4, 5, 6, 7, 8]
+    nums_2 = nums[0:3]
+    print(f"{nums_2}")
 
     pass
