@@ -76,6 +76,10 @@ class AVLTree:
         right_node.left = avl_node
         avl_node.right = left_node
 
+        # 更新节点高度
+        self.update_height(avl_node)
+        self.update_height(right_node)
+
         return right_node
 
         pass
@@ -92,7 +96,37 @@ class AVLTree:
         avl_node.left = right_node
         left_node.right = avl_node
 
+        # 更新节点高度
+        self.update_height(avl_node)
+        self.update_height(left_node)
+
         return left_node
+        pass
+
+    def left_right_rotate(self, avl_node):
+        """
+        先左旋、再右旋
+        :param avl_node:
+        :return:
+        """
+
+        avl_node.left = self.left_rotate(avl_node.left)
+
+        return self.right_rotate(avl_node)
+
+        pass
+
+    def right_left_rotate(self, avl_node):
+        """
+        先右旋、再左旋
+        :param avl_node:
+        :return:
+        """
+
+        avl_node.right = self.right_rotate(avl_node.right)
+
+        return self.left_rotate(avl_node)
+
         pass
 
     class AVLNode:
