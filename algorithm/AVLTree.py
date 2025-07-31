@@ -64,6 +64,37 @@ class AVLTree:
 
         pass
 
+    def left_rotate(self, avl_node):
+        """
+        左旋
+        :param avl_node: 要左旋的节点
+        :return: 新的根节点
+        """
+
+        right_node = avl_node.right
+        left_node = right_node.left
+        right_node.left = avl_node
+        avl_node.right = left_node
+
+        return right_node
+
+        pass
+
+    def right_rotate(self, avl_node):
+        """
+        右旋
+        :param avl_node: 要右旋的节点
+        :return: 新的根节点
+        """
+
+        left_node = avl_node.left
+        right_node = left_node.right
+        avl_node.left = right_node
+        left_node.right = avl_node
+
+        return left_node
+        pass
+
     class AVLNode:
         def __init__(self, value, left, right, height):
             self.value = value
