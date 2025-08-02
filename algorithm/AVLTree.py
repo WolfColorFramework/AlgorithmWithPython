@@ -176,6 +176,52 @@ class AVLTree:
         return self.balance(avl_node)
         pass
 
+    def remove(self, avl_node, key):
+        avl_node = self.__do_remove(avl_node, key)
+        pass
+
+    def __do_remove(self, avl_node, key):
+        """
+        删除value的node
+        :param avl_node: 树的root
+        :param key:
+        :return: 删除后剩余的节点
+        """
+
+        if avl_node is None:
+            return None
+
+        if key > avl_node.value:
+            avl_node.right = self.__do_remove(avl_node.right, key)
+            pass
+        elif key < avl_node.value:
+            avl_node.left = self.__do_remove(avl_node.left, key)
+            pass
+        else:
+            if avl_node.left is None and avl_node.right is None:
+                return avl_node
+            elif avl_node.left is None:
+                avl_node = avl_node.right
+                pass
+            elif avl_node.right is None:
+                avl_node = avl_node.left
+                pass
+            else:
+                s = avl_node.right
+                while s.left is not None:
+                    s = s.left
+                    pass
+                s.right = self.__do_remove(avl_node.right, s.value)
+                s.left = avl_node.left
+                avl_node = s
+                pass
+            pass
+
+        self.update_height(avl_node)
+        self.balance(avl_node)
+
+        pass
+
     class AVLNode:
         def __init__(self, value, left, right, height):
             self.value = value
