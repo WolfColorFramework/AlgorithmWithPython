@@ -40,30 +40,6 @@ class AVLTree:
         tree_node.height = max(self.height(tree_node.left), self.height(tree_node.right)) + 1
         pass
 
-    def balance_factor(self, tree_node):
-        """
-        平衡因子
-        :param tree_node:
-        :return:
-        """
-
-        return self.height(tree_node.left) - self.height(tree_node.right)
-        pass
-
-    def prev(self, tree_node):
-        """前序遍历 中左右"""
-
-        if tree_node is None:
-            return
-            pass
-
-        print(f"{tree_node.value} ", end="")
-
-        self.prev(tree_node.left)
-        self.prev(tree_node.right)
-
-        pass
-
     def left_rotate(self, avl_node):
         """
         左旋
@@ -127,6 +103,77 @@ class AVLTree:
 
         return self.left_rotate(avl_node)
 
+        pass
+
+    def balance(self, avl_node):
+        """
+        平衡节点
+        :param avl_node: 传入的节点
+        :return:
+        """
+
+        if avl_node is None:
+            return None
+
+        bf = self.__balance_factor(avl_node)
+
+        if bf > 1 and self.__balance_factor(avl_node) >= 0:
+            # 左左
+            return self.right_rotate(avl_node)
+            pass
+        elif bf > 1 and self.__balance_factor(avl_node) < 0:
+            # 左右
+            return self.left_right_rotate(avl_node)
+            pass
+        elif bf < -1 and self.__balance_factor(avl_node) > 0:
+            # 右左
+            return self.right_left_rotate(avl_node)
+            pass
+        elif bf < -1 and self.__balance_factor(avl_node) <= 0:
+            # 右右
+            return self.left_rotate(avl_node)
+            pass
+
+        return avl_node
+
+        pass
+
+    def __balance_factor(self, tree_node):
+        """
+        平衡因子
+        :param tree_node:
+        :return:
+        """
+
+        return self.height(tree_node.left) - self.height(tree_node.right)
+        pass
+
+    def put(self, avl_node, value):
+        avl_node = self.__do_put(avl_node, value)
+        pass
+
+    def __do_put(self, avl_node, value):
+        """
+        递归插入
+        :param avl_node: 当前节点
+        :param value: 要插入的值
+        :return:
+        """
+
+        if avl_node is None:
+            return AVLTree.AVLNode(value, None, None, 1)
+
+        if avl_node.value == value:
+            avl_node.value = value
+            return avl_node
+
+        if avl_node.value > value:
+            avl_node.left = self.__do_put(avl_node.left, value)
+        else:
+            avl_node.right = self.__do_put(avl_node.right, value)
+
+        self.update_height(avl_node)
+        return self.balance(avl_node)
         pass
 
     class AVLNode:
