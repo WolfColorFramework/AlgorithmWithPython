@@ -3,11 +3,11 @@ avl搜索二叉树
 """
 
 
-class AVLTree:
+class BTree:
 
     def __init__(self, t):
         self.t = t  # 最小度数
-        self.root = AVLTree.BNode(self.t)
+        self.root = BTree.BNode(self.t)
         self.min_key_num = t - 1  # 最小key数目
         self.max_key_num = 2 * t - 1  # 最大key数目
         pass
@@ -23,13 +23,38 @@ class AVLTree:
 
         pass
 
+    def split(self, left, parent, index):
+        if parent is None:
+            root = BTree.BNode(self.t)
+            root.is_leaf = False
+            root.insert_child(0, left)
+            self.root = root
+            parent = root
+            pass
+
+        right = BTree.BNode(self.t)
+        right.is_leaf = left.is_leaf
+        right.keys = left.keys[left.t:self.t + (self.t - 1)]
+        if not left.is_leaf:
+            right.children = left.children[self.t:self.t + self.t]
+            pass
+
+        # 中间的key（t-1）插入到父节点
+        mid = left.keys[self.t - 1]
+        parent.insert_key(index, mid)
+
+        # right节点作为parent的节点
+        parent.insert_child(index + 1, right)
+
+        pass
+
     def __do_put(self, node, key):
         i = 0
         while i < len(node.keys):
             if node.keys[i] == key:
                 return  # 更新
             elif node.key[i] > key:
-                break   # 找到位置
+                break  # 找到位置
             i += 1
             pass
 
