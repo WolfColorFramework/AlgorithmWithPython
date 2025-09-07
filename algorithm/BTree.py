@@ -24,6 +24,13 @@ class BTree:
         pass
 
     def split(self, left, parent, index):
+        """
+        节点分裂
+        :param left:    待分裂节点
+        :param parent:  待分裂节点的父节点
+        :param index:   待分裂节点是在parent中的索引
+        :return:
+        """
         if parent is None:
             root = BTree.BNode(self.t)
             root.is_leaf = False
@@ -48,7 +55,7 @@ class BTree:
 
         pass
 
-    def __do_put(self, node, key):
+    def __do_put(self, node, key, parent, index):
         i = 0
         while i < len(node.keys):
             if node.keys[i] == key:
@@ -61,7 +68,9 @@ class BTree:
         if node.is_leaf:
             node.insert_key(i, key)
         else:
-            self.__do_put(node.children[i], key)
+            self.__do_put(node.children[i], key, node, i)
+        if len(node.keys) == self.max_key_num:
+            self.split(node, parent, index)
         pass
 
     class BNode:
