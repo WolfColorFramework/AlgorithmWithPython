@@ -160,6 +160,12 @@ class BTree:
             self.keys.pop(index)
             return t
 
+        def remove_left_most_key(self):
+            return self.remove_key(0)
+
+        def remove_right_most_key(self):
+            return self.remove_key(len(self.keys) - 1)
+
     pass
 
 
