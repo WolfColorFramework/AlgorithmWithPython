@@ -73,6 +73,47 @@ class BTree:
             self.split(node, parent, index)
         pass
 
+    def remove(self, key):
+        pass
+
+    def __do_remove(self, node, key):
+        i = 0
+        while i < len(node.keys):
+            if node.keys[i] >= key:
+                break
+            i += 1
+        if node.is_leaf:
+            if not self.find_node(i, key, node):
+                return
+                pass
+            else:
+                node.remove_key(i)
+                pass
+            pass
+        else:
+            if not self.find_node(i, key, node):
+                self.__do_remove(node.children[i], key)
+                pass
+            else:
+                s = node.children[i + 1]
+                while not s.is_leaf:
+                    s = s.children[0]
+                s_key = s.keys[0]
+
+                node.keys[i] = s_key
+
+                self.__do_remove(node.children[i + 1], s_key)
+                pass
+
+            pass
+        if len(node.keys) < self.min_key_num:
+            # 调整平衡
+            pass
+        pass
+
+    def find_node(self, i, key, node):
+        return i < len(node.keys) and node.keys[i] == key
+
     class BNode:
         def __init__(self, t):
             self.keys = list()  # 关键字数量2*t-1
@@ -113,6 +154,11 @@ class BTree:
                 i -= 1
             self.children[index] = child
             pass
+
+        def remove_key(self, index):
+            t = self.keys[index]
+            self.keys.pop(index)
+            return t
 
     pass
 
