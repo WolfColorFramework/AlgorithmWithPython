@@ -114,6 +114,32 @@ class BTree:
     def find_node(self, i, key, node):
         return i < len(node.keys) and node.keys[i] == key
 
+    def balance(self, parent, node, index):
+        if node is self.root:
+            return
+
+        left = parent.child_left_sibling(index)
+        right = parent.child_right_sibling(index)
+
+        if left is not None and len(left.keys) > self.min_key_num:
+            # 右旋
+            node.insert_key(parent.keys[index - 1], 0)
+            if not left.is_leaf:
+                node.insert_chilid(0, left.remove_right_most_key())
+
+            parent.keys.insert(index - 1, left.remove_left_most_key())
+            return
+
+        if right is not None and len(right.keys) > self.min_key_num:
+            # 左旋
+            node.insert_key(parent.keys[index], len(node.keys))
+            if not node.is_leaf:
+                node.insert_chilid(right.remove_left_most_child(), len(node.keys) + 1)
+            parent.keys.insert(index, node.remove_left_most_key())
+            return
+
+        pass
+
     class BNode:
         def __init__(self, t):
             self.keys = list()  # 关键字数量2*t-1
@@ -165,6 +191,21 @@ class BTree:
 
         def remove_right_most_key(self):
             return self.remove_key(len(self.keys) - 1)
+
+        def child_left_sibling(self, index):
+            return self.children[index - 1] if index > 0 else None
+
+        def child_right_sibling(self, index):
+            return None if index == len(self.keys) else self.children[index + 1]
+
+        def move_to_target(self, target):
+            start = len(target.keys)
+            if not self.is_leaf:
+                for index, value in enumerate(target.keys):
+                    target.children.insert(start + index, self.children[index])
+
+            for index, value in enumerate(target.keys):
+                target.keys.insert(len(target.keys), self.keys[index])
 
     pass
 
