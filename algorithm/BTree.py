@@ -74,9 +74,10 @@ class BTree:
         pass
 
     def remove(self, key):
+        self.__do_remove(None, self.root, 0, key)
         pass
 
-    def __do_remove(self, node, key):
+    def __do_remove(self, parent, node, index, key):
         i = 0
         while i < len(node.keys):
             if node.keys[i] >= key:
@@ -92,7 +93,7 @@ class BTree:
             pass
         else:
             if not self.find_node(i, key, node):
-                self.__do_remove(node.children[i], key)
+                self.__do_remove(node, node.children[i], i, key)
                 pass
             else:
                 s = node.children[i + 1]
@@ -102,12 +103,13 @@ class BTree:
 
                 node.keys[i] = s_key
 
-                self.__do_remove(node.children[i + 1], s_key)
+                self.__do_remove(node, node.children[i + 1], i + 1, s_key)
                 pass
 
             pass
         if len(node.keys) < self.min_key_num:
             # 调整平衡
+            self.balance(parent, node, index)
             pass
         pass
 
@@ -116,6 +118,9 @@ class BTree:
 
     def balance(self, parent, node, index):
         if node is self.root:
+            if len(self.root.keys) == 0 and self.root.children[0] is not None:
+                self.root = self.root.children[0]
+
             return
 
         left = parent.child_left_sibling(index)
@@ -135,8 +140,25 @@ class BTree:
             node.insert_key(parent.keys[index], len(node.keys))
             if not node.is_leaf:
                 node.insert_chilid(right.remove_left_most_child(), len(node.keys) + 1)
-            parent.keys.insert(index, node.remove_left_most_key())
+            parent.keys.insert(index, right.remove_left_most_key())
             return
+
+        if left is not None:
+            """
+            向左兄弟合并
+            """
+            parent.children.pop(index)
+            left.children.insert(len(left.keys), parent.keys.pop(index - 1))
+            node.move_to_target(left)
+            pass
+        else:
+            """
+            向自己合并
+            """
+            parent.children.pop(index + 1)
+            node.insert_key(parent.keys.pop(index), len(node.keys))
+            right.move_to_target(node)
+            pass
 
         pass
 
