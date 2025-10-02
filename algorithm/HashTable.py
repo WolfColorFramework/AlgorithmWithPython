@@ -9,8 +9,8 @@ class HashTable:
         self.load_factor = 0.75
         self.threshold = len(self.table) * self.load_factor
 
-    def get(self, hash, key):
-        index = hash & (len(self.table) - 1)
+    def get(self, key):
+        index = hash(key) & (len(self.table) - 1)
 
         if self.table[index] is None:
             return None
@@ -24,10 +24,10 @@ class HashTable:
         return None
         pass
 
-    def put(self, hash, key, value):
-        index = hash & (len(self.table) - 1)
+    def put(self, key, value):
+        index = hash(key) & (len(self.table) - 1)
         if self.table[index] is None:
-            node = HashTable.Entry(hash, key, value)
+            node = HashTable.Entry(key, value)
             self.table[index] = node
         else:
             node = self.table[index]
@@ -38,7 +38,7 @@ class HashTable:
                 if node.next is None:
                     break
                 pass
-            node.next = HashTable.Entry(hash, key, value)
+            node.next = HashTable.Entry(key, value)
         self.size += 1
 
         if self.size > self.threshold:
@@ -83,8 +83,8 @@ class HashTable:
         self.threshold = len(self.table) * self.load_factor
         pass
 
-    def remove(self, hash, key):
-        index = hash & (len(self.table) - 1)
+    def remove(self, key):
+        index = hash(key) & (len(self.table) - 1)
         if self.table[index] is None:
             return None
 
@@ -103,8 +103,8 @@ class HashTable:
         pass
 
     class Entry:
-        def __init__(self, hash, key, value):
-            self.hash = hash
+        def __init__(self, key, value):
+            self.hash = hash(key)
             self.key = key
             self.value = value
             self.next = None
