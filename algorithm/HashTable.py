@@ -1,5 +1,6 @@
 """哈希表"""
 
+import mmh3
 
 class HashTable:
 
