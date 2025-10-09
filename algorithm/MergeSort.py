@@ -61,8 +61,8 @@ class MergeSort:
             arr2[k:k + (left_end - i + 1)] = arr[i:left_end + 1]
 
         # 关键：将排序后的元素复制回原数组
-        for i in range(left, right_end + 1):
-            arr[i] = arr2[i]
+        for index in range(left, right_end + 1):
+            arr[index] = arr2[index]
 
     pass
 
