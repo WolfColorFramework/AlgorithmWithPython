@@ -4,6 +4,6 @@
 
 
 class Edge:
-    def __init__(self, vertex):
+    def __init__(self, vertex, wight=0):
         self.linked = vertex
-        self.weight = 0
+        self.weight = wight
