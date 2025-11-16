@@ -15,7 +15,7 @@ class Dijkstra:
         heapq.heapify(min_heap)  # 初始化最小堆
 
         while len(min_heap) > 0:
-            # 选取当前顶点
+            # 选取当前最小顶点
             _, curr = heapq.heappop(min_heap)   # 弹出最小堆的元素
 
             # 更新当前顶点的邻居的距离
