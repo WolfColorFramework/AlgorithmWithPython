@@ -1,5 +1,6 @@
 """
 单元最短路径
+无法处理负边
 """
 from algorithm.Edge import Edge
 from algorithm.Vertex import Vertex
