@@ -8,6 +8,7 @@ from algorithm.Vertex import Vertex
 class TopologicalSort:
 
     def topological_sort(self, graph):
+        # 计算所有顶点得入度（这样才能找到入度为0的初始节点）
         for vertex in graph:
             for edge in vertex.edges:
                 edge.linked.in_degree += 1
@@ -16,6 +17,8 @@ class TopologicalSort:
         for vertex in graph:
             if vertex.in_degree == 0:
                 vertex_queue.append(vertex)
+
+        # end
 
         while len(vertex_queue) > 0:
             vertex = vertex_queue.pop(0)
@@ -37,6 +40,12 @@ class TopologicalSort:
         pass
 
     def __dfs(self, vertex, stack):
+        """
+        深度优先
+        :param vertex:
+        :param stack:
+        :return:
+        """
 
         if vertex.visited:
             return
