@@ -4,7 +4,7 @@
 """
 from algorithm.Edge import Edge
 from algorithm.Vertex import Vertex
-import heapq
+import heapq    # 堆
 
 
 class Dijkstra:
