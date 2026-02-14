@@ -15,8 +15,10 @@ class KnapsackProblem:
         pass
 
     def solve(self, total_weight):
+        # 1. 倒叙
         self.items.sort(key=lambda x: x.unit_value, reverse=True)
 
+        # 2. 贪心，每次取最大的
         max = 0
         for item in self.items:
             if total_weight >= item.weight:
