@@ -27,7 +27,7 @@ class HuffmanTree:
         for k, v in self.map.items():
             self.pq.put(v)
 
-        # 2.构造树
+        # 2.构造树（这里是贪心思想，取出频次最小的2个，组合成一个树）
         while self.pq.qsize() >= 2:
             x = self.pq.get()
             y = self.pq.get()
@@ -35,7 +35,7 @@ class HuffmanTree:
             self.root = HuffmanTree.TreeNode(None, freq, x, y, "")
             self.pq.put(self.root)
 
-        # 计算编码
+        # 3.计算编码
         self.__dfs(self.pq.get(), "")
 
         print("打印最终code")
